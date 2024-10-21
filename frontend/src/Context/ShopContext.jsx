@@ -13,8 +13,6 @@ const DefaultcartValue = (products) => {
 const ShopContextProvider = (props) => {
     const [all_products, setAllProducts] = useState([]);
     const [cartvalue, setcartvalue] = useState({});
-    const [loading, setLoading] = useState(true);  // Add loading state
-    const [error, setError] = useState(null);  // Add error state
 
     const fetchData = async () => {
         try {
@@ -28,9 +26,6 @@ const ShopContextProvider = (props) => {
             setcartvalue(DefaultcartValue(data)); // Initialize cart after products are fetched
         } catch (error) {
             console.error('Error fetching products:', error);
-            setError("Failed to load products");
-        } finally {
-            setLoading(false);
         }
     
         // Check if 'auth-token' exists in localStorage
@@ -59,58 +54,51 @@ const ShopContextProvider = (props) => {
     useEffect(() => {
         fetchData();
     }, []);
-       const addTocart = async (itemid) => {
+    
+    const addTocart = async (itemid) => {
         // Update cart value in the frontend state
         setcartvalue((prev) => ({
-          ...prev,
-          [itemid]: (prev[itemid] || 0) + 1, // Initialize with 0 if undefined
+            ...prev,
+            [itemid]: (prev[itemid] || 0) + 1, // Initialize with 0 if undefined
         }));
       
         // Check if the user is authenticated by looking for the auth token
-        if (localStorage.getItem('auth-token')) 
+        if (localStorage.getItem('auth-token')) {
             console.log(localStorage.getItem('auth-token'));
-            
-            {
-          try {
-            const response = await fetch('https://stylemartbackend.onrender.com/addtocart', {
-              method: 'POST',
-              headers: {
-                Accept: 'application/form-data',
-                'auth-token': `${localStorage.getItem('auth-token')}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ itemid: itemid }),
-            }).then((res)=>res.json()).then((data)=>console.log(data))
-      
-            
-            
-          } catch (error) {
-            console.error('Error adding to cart:', error);
-          }
+
+            try {
+                const response = await fetch('https://stylemartbackend.onrender.com/addtocart', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/form-data',
+                        'auth-token': `${localStorage.getItem('auth-token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ itemid: itemid }),
+                }).then((res) => res.json())
+                  .then((data) => console.log(data));
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+            }
         }
-      };
+    };
       
     const removeFromcart = async(itemid) => {
         setcartvalue((prev) => ({
             ...prev,
             [itemid]: prev[itemid] > 0 ? prev[itemid] - 1 : 0
         }));
-        if(localStorage.getItem('auth-token'))
-        {
-             await fetch('https://stylemartbackend.onrender.com/removeproduct', {
+        if(localStorage.getItem('auth-token')) {
+            await fetch('https://stylemartbackend.onrender.com/removeproduct', {
                 method: 'POST',
                 headers: {
-                  Accept: 'application/form-data',
-                  'auth-token': `${localStorage.getItem('auth-token')}`,
-                  'Content-Type': 'application/json',
+                    Accept: 'application/form-data',
+                    'auth-token': `${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ itemid: itemid }),
-              }).then((res)=>res.json()).then((data)=>console.log(data))
-        
-              
-              
-             
-                
+            }).then((res) => res.json())
+              .then((data) => console.log(data));
         }
     };
 
@@ -125,14 +113,6 @@ const ShopContextProvider = (props) => {
         removeFromcart,
         getTotalCartItems
     };
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
 
     return (
         <ShopContext.Provider value={contextValue}>
