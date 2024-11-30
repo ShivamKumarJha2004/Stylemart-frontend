@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import RelatedProduct from './MensRelatedProduct';
+import Footer from './Footer';
+import Loading from './Loading';
  // Import RelatedProduct component
 
-const Productdisplay = (props) => {
+const Productdisplay = (props,{ isDarkMode }) => {
   const { product } = props;
 
   // State to manage selected size
@@ -12,7 +14,7 @@ const Productdisplay = (props) => {
 
   // Check if product data is available
   if (!product) {
-    return <div>Loading...</div>; // Show a loading state if product is not yet available
+    return <Loading/>; // Show a loading state if product is not yet available
   }
 
   // Handler for size selection
@@ -22,7 +24,9 @@ const Productdisplay = (props) => {
 
   console.log(product.id);
 
+  
   return (
+    <>
     <div>
       {/* Product Display Section */}
       <div className='flex md:ml-28 ml-0 relative top-5 flex-col md:flex-row'>
@@ -56,17 +60,17 @@ const Productdisplay = (props) => {
             </h1>
 
             {/* Prices */}
-            <div className='flex items-center space-x-4 text-2xl mt-2'>
-              <div className='line-through text-slate-500 font-semibold'>
+            <div className='flex items-center space-x-4 text-2xl mt-2 '>
+              <div className='line-through text-slate-500 font-semibold '>
                 <span>₹</span>{product.old_price}
               </div>
-              <div className='font-bold text-black'>
+              <div className='font-bold text-black dark:text-white'>
                 <span>₹</span>{product.new_price}
               </div>
             </div>
 
             {/* Product Description */}
-            <div className='mt-4 text-sm text-gray-700'>
+            <div className='mt-4 text-sm text-gray-700 dark:text-white'>
               <h2 className='text-lg font-semibold'>Description:</h2>
               <p>{product.description}</p>
             </div>
@@ -89,21 +93,21 @@ const Productdisplay = (props) => {
 
             {/* Add to Cart Button */}
             <div className='mt-6'>
-              <button className='py-2 px-4 bg-rose-500 text-white font-semibold rounded-md' onClick={() => addTocart(product.id)}>
+              <button className='py-4 md:py-3 text-lg md:text-sm px-4 bg-rose-500 hover:bg-rose-900 transition duration-200 text-white font-semibold rounded-md w-[90%] md:w-[30%]' onClick={() => addTocart(product.id)}>
                 Add to Cart
               </button>
             </div>
 
             {/* Category Section */}
-            <div className='mt-4'>
-              <h2 className='text-lg font-semibold'>Category:</h2>
-              <p className='text-sm text-gray-700'>Clothing</p>
+            <div className='mt-4 '>
+              <h2 className='text-lg font-semibold dark:text-white'>Category:</h2>
+              <p className='text-sm text-gray-700 dark:text-white'>Clothing</p>
             </div>
 
             {/* Tags Section */}
             <div className='mt-2'>
               <h2 className='text-lg font-semibold'>Tags:</h2>
-              <p className='text-sm text-gray-700'>
+              <p className='text-sm text-gray-700 dark:text-white'>
                 Modern, Latest, Bestseller
               </p>
             </div>
@@ -116,7 +120,13 @@ const Productdisplay = (props) => {
         {/* Pass the appropriate category to fetch related products */}
         <RelatedProduct category={product.category} />
       </div>
+  
     </div>
+    
+    <div>
+      <Footer/>
+    </div>
+    </>
   );
 };
 

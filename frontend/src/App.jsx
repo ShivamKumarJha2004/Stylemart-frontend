@@ -45,7 +45,7 @@ function App() {
         <Route path="/kids" element={<Shopcategories banner={kidBanner} categories="kid" />} />
         
         {/* Corrected Product Route with productId dynamic parameter */}
-        <Route path="/product/:productId" element={<Product />} />
+        <Route path="/product/:productId" element={<Product isDarkMode={isDarkMode}  />} />
         
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />

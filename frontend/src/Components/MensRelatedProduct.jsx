@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Item from './Items.jsx';
+import Footer from './Footer.jsx';
 
 const MensRelatedProduct = ({ category }) => {  // Accept 'category' as a prop
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -25,10 +26,11 @@ const MensRelatedProduct = ({ category }) => {  // Accept 'category' as a prop
   }, [category]);  // Re-fetch when the category changes
 
   return (
+    <>
     <div className='relative md:top-[15rem] bottom-[25rem] md:right-0'>
       <h1 className="text-2xl font-bold mb-4 text-center">Related Products - {category.charAt(0).toUpperCase() + category.slice(1)}</h1>
       <hr className="mb-4 w-[210px] h-[6px] rounded-md bg-slate-700 mx-auto" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative md:left-0 left-5">
+      <div className=" mr-14 md:mr-0  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative md:left-0 left-5">
         {relatedProducts.length > 0 ? (
           relatedProducts.map((item, i) => (
             <Item 
@@ -44,7 +46,10 @@ const MensRelatedProduct = ({ category }) => {  // Accept 'category' as a prop
           <p>No related products found for {category}.</p>
         )}
       </div>
+     
     </div>
+    
+    </>    
   );
 };
 

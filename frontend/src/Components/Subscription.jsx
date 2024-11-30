@@ -12,7 +12,8 @@ const Subscription = ({ isDarkMode }) => {
 
   return (
     <div
-      className={`p-10 rounded-lg shadow-lg text-center mx-auto my-8 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'}`}
+    
+      className={`p-10 rounded-lg shadow-lg text-center mx-10 md:mx-auto my-8 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'}`}
       style={{ maxWidth: '600px' }} // Optional: Set max width for better alignment
     >
       <h2 className="text-3xl font-bold mb-4">Get Exclusive Offers</h2>

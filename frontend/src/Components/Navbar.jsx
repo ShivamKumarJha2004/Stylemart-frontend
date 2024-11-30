@@ -16,7 +16,7 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
   };
 
   return (
-    <nav className="bg-gray-200 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-700">
+    <nav className="bg-gray-200 dark:bg-gray-900 fixed md: w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-700 ">
       <div className="flex flex-col md:flex-row max-w-screen-xl mx-auto p-4">
         {/* Upper Section: Logo and Heading */}
         <div className="flex items-center justify-between w-full mb-4 md:mb-0">
@@ -118,7 +118,7 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
             <button
               onClick={toggleMenu}
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="inline-flex items-center p-2 font-bold w-10 h-10 justify-center text-xl bg-transparent dark:text-white dark:bg-transparent rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-controls="navbar-sticky"
               aria-expanded={isMenuOpen ? 'true' : 'false'}
             >
@@ -141,10 +141,10 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
             </button>
 
             <div
-              className={`absolute left-0 top-full w-full bg-gray-200 dark:bg-gray-900 md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}
+              className={`absolute left-0 top-full w-[94%] bg-gray-200 dark:bg-gray-900 border-2 dark: border-1 border-green-600 md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}
               id="navbar-sticky"
             >
-              {/* Close Button */}
+              <div className='flex flex-col bg-transparent dark:bg-transparent p-4 rounded-md'>              {/* Close Button */}
               <button
                 onClick={closeMenu}
                 type="button"
@@ -154,13 +154,14 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
               </button>
 
               {/* Menu Items with Full Left Alignment */}
-              <ul className="flex flex-col w-full space-y-2 text-left">
+              <ul className="flex flex-col w-full space-y-2 text-center">
                 <li>
                   <Link to="/">
                     <a className="block w-full py-2 px-4 text-2xl font-semibold text-gray-900 dark:text-gray-300 bg-clip-text hover:bg-gray-200 dark:hover:bg-gray-800">
                       Shop
                     </a>
                   </Link>
+                  <hr className='bg-red-800' />
                 </li>
                 <li>
                   <Link to="/mens">
@@ -168,6 +169,7 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
                       Men
                     </a>
                   </Link>
+                  <hr className='bg-orange-600' />
                 </li>
                 <li>
                   <Link to="/womens">
@@ -175,6 +177,7 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
                       Women
                     </a>
                   </Link>
+                  <hr className='bg-pink-900' />
                 </li>
                 <li>
                   <Link to="/kids">
@@ -182,8 +185,11 @@ function Navbar({ isDarkMode, toggleDarkMode }) {
                       Kids
                     </a>
                   </Link>
+                  <hr className='bg-black' />
                 </li>
               </ul>
+              </div>
+
             </div>
           </div>
         </div>

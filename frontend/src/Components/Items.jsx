@@ -9,7 +9,7 @@ const Items = ({ id, name, image, new_price, old_price, isDarkMode }) => {
 
   return (
     <div
-      className={`rounded-lg shadow-md p-4 m-4 w-full max-w-xs transition-transform duration-300 transform hover:scale-105 hover:shadow-xl relative right-[2rem] md:right-0 ${
+      className={`rounded-lg shadow-md p-4 m-4 ml-10 md:ml-0 w-full max-w-xs transition-transform duration-300 transform hover:scale-105 hover:shadow-xl relative right-[2rem] md:right-0 ${
         isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
       }`}
     >

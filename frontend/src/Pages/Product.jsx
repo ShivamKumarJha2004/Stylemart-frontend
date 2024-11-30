@@ -5,16 +5,19 @@ import Navigate from '../Components/navigate/Navigate';
 import MensRelatedProduct from '../Components/MensRelatedProduct';
 import WomenRelatedProduct from '../Components/WomenRealtedProduct'; // Assuming this is for women's products
 import KidsRelatedProduct from '../Components/KidRealtedProduct'; // Assuming this is for kids' products
+import Loading from '../Components/Loading';
 
-function Product() {
+function Product({ isDarkMode }) {
     const { all_products } = useContext(ShopContext); // Destructure correctly here
     const { productId } = useParams();
+    
+    
 
     // Debugging
 
     // Check if all_products is defined
     if (!all_products || all_products.length === 0) {
-        return <div>Loading...</div>; // Handle loading state
+        return <div><Loading/></div>; // Handle loading state
     }
 
     // Ensure productId is converted to a number before matching
@@ -31,7 +34,7 @@ function Product() {
             {console.log(product)} {/* Now product should log correctly */}
             
             {/* Pass the single product object, not the entire array */}
-            <Navigate product={product} />
+            <Navigate product={product} isDarkMode={{ isDarkMode }}   />
 
             {/* Conditionally render based on product category */}
             {product.categories === 'men' && <MensRelatedProduct />}  {/* For men's products */}
